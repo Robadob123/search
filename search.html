@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Results</title>
+    <style>
+      /* add your CSS styles here */
+    </style>
+  </head>
+  <body>
+    <h1>Search Results</h1>
+    <div id="searchResults"></div>
+    <script>
+      // get the matching articles from localStorage
+      const matchingArticles = JSON.parse(localStorage.getItem("matchingArticles"));
+      if (matchingArticles) {
+        // display each matching article in the search results
+        const searchResultsDiv = document.getElementById("searchResults");
+        matchingArticles.forEach(articleHtml => {
+          const articleElement = document.createElement("article");
+          articleElement.innerHTML = articleHtml;
+          searchResultsDiv.appendChild(articleElement);
+        });
+        // clear the matchingArticles from localStorage
+        localStorage.removeItem("matchingArticles");
+      } else {
+        // display a message if no matching articles were found
+        const searchResultsDiv = document.getElementById("searchResults");
+        const message = document.createElement("p");
+        message.textContent = "No matching articles found.";
+        searchResultsDiv.appendChild(message);
+      }
+    </script>
+  </body>
+</html>

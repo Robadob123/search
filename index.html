@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <style>
+      /* add your CSS styles here */
+    </style>
+  </head>
+  <body>
+    <form action="search.html" onsubmit="return searchArticles()">
+      <input type="text" id="search" name="search" placeholder="Search">
+      <button type="submit">Search</button>
+    </form>
+    <article>
+      <h2>Article 1</h2>
+      <p>Date: March 27, 2023</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </article>
+    <article>
+      <h2>Article 2</h2>
+      <p>Date: March 28, 2023</p>
+      <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </article>
+	  
+	      <article>
+      <h2>Article 3</h2>
+      <p>Date: March 30, 2023</p>
+      <p>Eilert er drit heit og får meg til å buste!</p>
+    </article>
+    <!-- add more articles here -->
+    <script>
+      function searchArticles() {
+        // get the search term from the input field
+        const searchTerm = document.getElementById("search").value.toLowerCase().trim();
+        // get all the articles on the page
+        const articles = document.getElementsByTagName("article");
+        // create an array to store the matching articles
+        const matchingArticles = [];
+        // loop through the articles and check if they contain the search term
+        for (let i = 0; i < articles.length; i++) {
+          const article = articles[i];
+          const title = article.querySelector("h2").textContent.toLowerCase().trim();
+          const content = article.querySelector("p:not(:first-of-type)").textContent.toLowerCase().trim();
+          if (title.includes(searchTerm) || content.includes(searchTerm)) {
+            matchingArticles.push(article.outerHTML);
+          }
+        }
+        // check if any matching articles were found
+        if (matchingArticles.length === 0) {
+          alert("No matching articles found");
+          return false;
+        }
+        // store the matching articles in localStorage
+        localStorage.setItem("matchingArticles", JSON.stringify(matchingArticles));
+        return true;
+      }
+    </script>
+  </body>
+</html>
